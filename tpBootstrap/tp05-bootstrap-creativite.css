@@ -1,0 +1,12 @@
+body {background-color: #7bcb0e;}
+
+.position-t{
+    object-position: top;
+  }
+
+
+.carousel img{
+    height:600px;
+    object-fit: cover;
+  }
+
