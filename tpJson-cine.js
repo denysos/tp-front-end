@@ -43,27 +43,60 @@ function alimPage(dataTotale) {
     let dataT = dataTotale.Search;
     let titre0 = dataT[0].Title;
 
-    storeDetailsOnSession(titre0);
-    let DATA = sessionStorage.getItem('film');
+    // pb avec 2 eme appel vers la base pour récupérer les détails :
+    // storeDetailsOnSession(titre0);
+    // let DATA = sessionStorage.getItem('film');
+    // console.log("alimPage() : " + DATA);
 
-    console.log("alimPage() : " + DATA);
+    affichagePremierFilm();
+    affichageListeFilm();
 
-    let titre = document.querySelector("#titre");
-    titre.value = DATA.Title;
-    let annee = document.querySelector("#annee");
-    annee.value = DATA.Year;
-    let genre = document.querySelector("#genre");
-    genre.value = DATA.Genre;
-    let realisateur = document.querySelector("#realisateur");
-    realisateur.value = DATA.Director;
-    let acteurs = document.querySelector("#acteurs");
-    acteurs.value = DATA.Actors;
+
+    // affichage du premier film en entête :
+    function affichagePremierFilm() {
+        let afficheFilm = document.querySelector("#affiche0");
+        let imgFilm = document.createElement("img");
+        imgFilm.src = dataT[0].Poster;
+        imgFilm.alt = dataT[0].Title;
+        afficheFilm.appendChild(imgFilm);
+        let titre = document.querySelector("#titre");
+        titre.value = dataT[0].Title;
+        let annee = document.querySelector("#annee");
+        annee.value = dataT[0].Year;
+        let genre = document.querySelector("#genre");
+        genre.value = dataT[0].Genre;
+        let realisateur = document.querySelector("#realisateur");
+        realisateur.value = dataT[0].Director;
+        let acteurs = document.querySelector("#acteurs");
+        acteurs.value = dataT[0].Actors;
+    }
+
+    //affichage liste des films :
+    function affichageListeFilm() {
+        let listeFilm = document.querySelector("#liste");
+        for (let index = 1; index <= 10; index++) {
+            dataT[index];
+            let ligneFilm = document.createElement("div");
+            ligneFilm.class = "row";
+            colFilm = document.createElement("div");
+            colFilm.class = "col-sm-6";
+            imgFilm = document.createElement("img");
+            imgFilm.src = dataT[index].Poster;
+            imgFilm.alt = dataT[index].Title;
+            listeFilm.appendChild(ligneFilm);
+            ligneFilm.appendChild(colFilm);
+            colFilm.appendChild(imgFilm);
+            let titreFilm = document.createElement("p");
+            titreFilm.textContent = dataT[index].Title;
+            colFilm.appendChild(titreFilm);
+
+        }
+
+
+    }
 }
 
 
 //programme :
-// let donneesBrutesFilms = rqcine();
-// alimPage(donneesBrutesFilms);
-
-storeDetailsOnSession("rock");
-console.log("par ici les DATA : " + sessionStorage.getItem('film'));
+// storeDetailsOnSession("rock");
+// console.log("par ici les DATA : " + sessionStorage.getItem('film'));
