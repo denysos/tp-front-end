@@ -17,26 +17,64 @@ function rqcine() {
     console.log("texte recherche : " + texteRq);
 
     fetch(url + rq + texteRq).then(res => res.json())
-        .then(data => alimPage(data))
-        .catch(error => console.log(error));
+        .then(data => {
+            alimPage(data);
+            afficheDetail(data.Search[0].Title)
+        })
+        .catch(console.error);
 }
 
-function storeDetailsOnSession(titre) {
+
+
+function afficheDetail(titre) {
+    // affiche les détails en appelant omdb sur le titre
     let url = 'http://www.omdbapi.com/?apikey=f6e256e1&';
     let rqTitre = 't=';
-
-    // let texteRq = document.querySelector("#recherche").value;
-    console.log("texte recherche : " + titre);
-
-    // fetch(url + rqTitre + titre).then(res => JSON.parse(res))
+    // let titre = document.querySelector("#titre").value;
     fetch(url + rqTitre + titre).then(res => res.json())
-        .then(data => {
-            console.log("datafetch : " + data)
-            sessionStorage.setItem('film', data)
-        })
-        .catch(error => console.log(error));
+        .then(data => majDetail(data))
+        .catch(console.error);
+}
+
+
+function majDetail(data) {
+    // alimente des données de la section "reponse"
+
+    let afficheFilm = document.querySelector("#affiche0");
+    let imgFilm = document.createElement("img");
+    imgFilm.src = data.Poster;
+    imgFilm.alt = data.Title;
+    afficheFilm.appendChild(imgFilm);
+ 
+    let titre = document.querySelector("#titre");
+    titre.value = data.Title;
+    let annee = document.querySelector("#annee");
+    annee.value = data.Year;
+    let genre = document.querySelector("#genre");
+    genre.value = data.Genre;
+    let realisateur = document.querySelector("#realisateur");
+    realisateur.value = data.Director;
+    let acteurs = document.querySelector("#acteurs");
+    acteurs.value = data.Actors;
 
 }
+
+// function storeDetailsOnSession(titre) {
+//     let url = 'http://www.omdbapi.com/?apikey=f6e256e1&';
+//     let rqTitre = 't=';
+
+//     // let texteRq = document.querySelector("#recherche").value;
+//     console.log("texte recherche : " + titre);
+
+//     // fetch(url + rqTitre + titre).then(res => JSON.parse(res))
+//     fetch(url + rqTitre + titre).then(res => res.json())
+//         .then(data => {
+//             console.log("datafetch : " + data)
+//             sessionStorage.setItem('film', data)
+//         })
+//         .catch(error => console.log(error));
+
+// }
 
 function alimPage(dataTotale) {
     console.log(dataTotale)
@@ -48,8 +86,9 @@ function alimPage(dataTotale) {
     // let DATA = sessionStorage.getItem('film');
     // console.log("alimPage() : " + DATA);
 
-    affichagePremierFilm();
+    // affichagePremierFilm();
     affichageListeFilm();
+    // afficheDetail();
 
 
     // affichage du premier film en entête :
@@ -59,22 +98,22 @@ function alimPage(dataTotale) {
         imgFilm.src = dataT[0].Poster;
         imgFilm.alt = dataT[0].Title;
         afficheFilm.appendChild(imgFilm);
-        let titre = document.querySelector("#titre");
-        titre.value = dataT[0].Title;
-        let annee = document.querySelector("#annee");
-        annee.value = dataT[0].Year;
-        let genre = document.querySelector("#genre");
-        genre.value = dataT[0].Genre;
-        let realisateur = document.querySelector("#realisateur");
-        realisateur.value = dataT[0].Director;
-        let acteurs = document.querySelector("#acteurs");
-        acteurs.value = dataT[0].Actors;
+        // let titre = document.querySelector("#titre");
+        // titre.value = dataT[0].Title;
+        // let annee = document.querySelector("#annee");
+        // annee.value = dataT[0].Year;
+        // let genre = document.querySelector("#genre");
+        // genre.value = dataT[0].Genre;
+        // let realisateur = document.querySelector("#realisateur");
+        // realisateur.value = dataT[0].Director;
+        // let acteurs = document.querySelector("#acteurs");
+        // acteurs.value = dataT[0].Actors;
     }
 
     //affichage liste des films :
     function affichageListeFilm() {
         let listeFilm = document.querySelector("#liste");
-        for (let index = 1; index <= 10; index++) {
+        for (let index = 1; index < 10; index++) {
             dataT[index];
             let ligneFilm = document.createElement("div");
             ligneFilm.class = "row";
