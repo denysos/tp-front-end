@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>exemple : une liste de courses dynamique </title>
+    <style>
+        li {
+            margin-bottom: 10px;
+        }
+
+        li button {
+            font-size: 8px;
+            margin-left: 20px;
+            color: #666;
+        }
+    </style>
+</head>
+
+<body>
+
+    <h1>Ma liste de courses :</h1>
+
+    <div>
+        <label for="item">Entrez un nouvel élément :</label>
+        <input type="text" name="item" id="item" value="">
+        <button type="button">Ajouter l'élément </button>
+    </div>
+
+    <ul>
+
+    </ul>
+
+    <script>
+        let refListe = document.querySelector("ul");
+        let refEntree = document.querySelector("#item");
+        let refBouton = document.querySelector("button");
+
+        // clic sur le bouton
+        refBouton.onclick = function () {
+            let valeurActuelle = refEntree.value;
+            refEntree.value = '';
+            let nouvelEltListe = document.createElement("li");
+
+            let nouvelEltSpan = document.createElement("span");
+            nouvelEltSpan.textContent = valeurActuelle;
+
+            // création du bouton supprimer
+            let nouvelEltButton = document.createElement("button");
+            nouvelEltButton.textContent = "supprimer";
+            nouvelEltButton.onclick = function () {
+                nouvelEltListe.remove();
+            }
+            
+            nouvelEltListe.appendChild(nouvelEltSpan);
+            nouvelEltListe.appendChild(nouvelEltButton);
+            refListe.appendChild(nouvelEltListe);
+
+
+
+
+            refEntree.focus();
+        }
+    </script>
+</body>
+
+</html>
