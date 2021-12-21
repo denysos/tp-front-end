@@ -84,3 +84,37 @@ function alimPage(dataTotale) {
 
     }
 }
+
+
+
+function raz() {
+// effacer les résultats de la dernière recherche !
+
+    //affiche premier film
+    let conteneurAffiche = document.querySelector("#affiche0");
+    let affiche = conteneurAffiche.querySelector("img");
+    affiche.remove();
+
+    //detail premier film
+    let titre = document.querySelector("#titre");
+    titre.value = "...";
+    let annee = document.querySelector("#annee");
+    annee.value = "...";
+    let genre = document.querySelector("#genre");
+    genre.value = "...";
+    let realisateur = document.querySelector("#realisateur");
+    realisateur.value = "...";
+    let acteurs = document.querySelector("#acteurs");
+    acteurs.value = "...";
+
+    //liste
+    liste = document.querySelector("#liste");
+    elt = liste.querySelectorAll("div");
+    
+    elt.forEach(element => {
+        element.remove();
+    });
+  
+
+
+}
